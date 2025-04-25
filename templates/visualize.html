@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization - Crop Fertilizer Recommendation System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="/">Crop Fertilizer Recommendation System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/visualize">Data Visualization</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4>Data Visualization</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Explore the dataset through various visualizations to better understand the relationships between different parameters.</p>
+                        
+                        <div class="btn-group mb-4" role="group">
+                            <button type="button" class="btn btn-outline-success active" data-viz="crop_distribution">Crop Distribution</button>
+                            <button type="button" class="btn btn-outline-success" data-viz="fertilizer_distribution">Fertilizer Distribution</button>
+                            <button type="button" class="btn btn-outline-success" data-viz="soil_crop_relation">Soil-Crop Relation</button>
+                            <button type="button" class="btn btn-outline-success" data-viz="npk_distribution">NPK Distribution</button>
+                        </div>
+                        
+                        <div id="visualization-container" class="text-center">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4>Insights</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="insights-container">
+                            <h5>Crop Distribution</h5>
+                            <p>This visualization shows the distribution of different crop types in the dataset. Understanding which crops are most common can help identify popular choices for similar soil and weather conditions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4>Data Analysis</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="analysis-container">
+                            <h5>Key Observations</h5>
+                            <ul>
+                                <li>Different soil types support different crops optimally</li>
+                                <li>NPK (Nitrogen, Phosphorous, Potassium) levels significantly impact crop yield</li>
+                                <li>Certain fertilizers work better with specific crop types</li>
+                                <li>Weather conditions like temperature and humidity affect crop suitability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">© 2023 Crop Fertilizer Recommendation System</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load default visualization
+            loadVisualization('crop_distribution');
+            
+            // Add event listeners to buttons
+            document.querySelectorAll('[data-viz]').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('[data-viz]').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Load visualization
+                    loadVisualization(this.getAttribute('data-viz'));
+                    
+                    // Update insights
+                    updateInsights(this.getAttribute('data-viz'));
+                });
+            });
+            
+            function loadVisualization(vizType) {
+                const container = document.getElementById('visualization-container');
+                container.innerHTML = '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';
+                
+                fetch(`/api/visualization/${vizType}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            container.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                        } else {
+                            container.innerHTML = `<img src="data:image/png;base64,${data.image}" class="img-fluid" alt="${vizType} visualization">`;
+                        }
+                    })
+                    .catch(error => {
+                        container.innerHTML = `<div class="alert alert-danger">Error loading visualization: ${error}</div>`;
+                    });
+            }
+            
+            function updateInsights(vizType) {
+                const insightsContainer = document.getElementById('insights-container');
+                
+                switch(vizType) {
+                    case 'crop_distribution':
+                        insightsContainer.innerHTML = `
+                            <h5>Crop Distribution</h5>
+                            <p>This visualization shows the distribution of different crop types in the dataset. Understanding which crops are most common can help identify popular choices for similar soil and weather conditions.</p>
+                        `;
+                        break;
+                    case 'fertilizer_distribution':
+                        insightsContainer.innerHTML = `
+                            <h5>Fertilizer Distribution</h5>
+                            <p>This visualization shows the distribution of different fertilizer types in the dataset. It helps identify which fertilizers are commonly used for various crops and soil conditions.</p>
+                        `;
+                        break;
+                    case 'soil_crop_relation':
+                        insightsContainer.innerHTML = `
+                            <h5>Soil-Crop Relation</h5>
+                            <p>This visualization shows the relationship between soil types and crop types. It helps understand which crops grow best in different soil conditions, allowing for better crop selection based on your soil type.</p>
+                        `;
+                        break;
+                    case 'npk_distribution':
+                        insightsContainer.innerHTML = `
+                            <h5>NPK Distribution</h5>
+                            <p>This visualization shows the distribution of Nitrogen (N), Phosphorous (P), and Potassium (K) levels in the dataset. Understanding these nutrient distributions helps in determining optimal fertilizer application for different crops.</p>
+                        `;
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Crop Fertilizer Recommendation System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="/">Crop Fertilizer Recommendation System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/visualize">Data Visualization</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4>About the System</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Project Overview</h5>
+                        <p>The Crop Fertilizer Recommendation System is designed to help farmers and agricultural professionals make informed decisions about crop selection and fertilizer application. By analyzing soil properties, weather conditions, and other relevant parameters, the system provides recommendations that optimize both productivity and sustainability.</p>
+                        
+                        <h5>How It Works</h5>
+                        <p>The system uses machine learning algorithms trained on agricultural data to predict the most suitable crops and fertilizers for given conditions. The process involves:</p>
+                        <ol>
+                            <li>Data collection: Gathering information about soil properties, weather conditions, and nutrient levels</li>
+                            <li>Data preprocessing: Cleaning and transforming the data for analysis</li>
+                            <li>Model training: Using machine learning algorithms to identify patterns and relationships</li>
+                            <li>Prediction: Generating recommendations based on input parameters</li>
+                            <li>Evaluation: Assessing the sustainability and productivity of the recommendations</li>
+                        </ol>
+                        
+                        <h5>Technologies Used</h5>
+                        <ul>
+                            <li>Flask: Web framework for building the application</li>
+                            <li>Scikit-learn: Machine learning library for model training and prediction</li>
+                            <li>Pandas: Data manipulation and analysis</li>
+                            <li>NumPy: Numerical computing</li>
+                            <li>Matplotlib & Seaborn: Data visualization</li>
+                            <li>Bootstrap: Frontend styling and components</li>
+                        </ul>
+                        
+                        <h5>Dataset</h5>
+                        <p>The system is trained on a comprehensive dataset containing information about various crops, soil types, weather conditions, and fertilizers. The dataset includes:</p>
+                        <ul>
+                            <li>Temperature and humidity measurements</li>
+                            <li>Soil moisture levels</li>
+                            <li>Soil types (Black, Clayey, Loamy, Red, Sandy)</li>
+                            <li>Crop types (17 different crops including rice, wheat, maize, etc.)</li>
+                            <li>NPK (Nitrogen, Phosphorous, Potassium) levels</li>
+                            <li>Fertilizer types (14 different fertilizers)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4>Benefits</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Increased Crop Yield:</strong> By recommending the most suitable crops and fertilizers, the system helps maximize productivity.</li>
+                            <li><strong>Resource Optimization:</strong> Proper fertilizer recommendations help avoid over-application, saving costs and reducing environmental impact.</li>
+                            <li><strong>Sustainable Farming:</strong> The system considers both productivity and sustainability, promoting environmentally friendly practices.</li>
+                            <li><strong>Data-Driven Decisions:</strong> Recommendations are based on data analysis rather than guesswork, leading to more reliable outcomes.</li>
+                            <li><strong>Educational Tool:</strong> The system helps users understand the relationships between different agricultural parameters.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4>Future Enhancements</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Weather API Integration:</strong> Automatically fetch current weather data for more accurate recommendations.</li>
+                            <li><strong>Mobile Application:</strong> Develop a mobile app for on-the-go access.</li>
+                            <li><strong>Expanded Dataset:</strong> Include more crops, soil types, and regional variations.</li>
+                            <li><strong>IoT Integration:</strong> Connect with soil sensors for real-time data collection.</li>
+                            <li><strong>Yield Prediction:</strong> Add functionality to predict expected crop yield based on conditions.</li>
+                            <li><strong>Economic Analysis:</strong> Include cost-benefit analysis for different crop and fertilizer combinations.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">© 2023 Crop Fertilizer Recommendation System</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
